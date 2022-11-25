@@ -6,6 +6,6 @@ const restaurantRoute = express.Router()
 
 restaurantRoute.post('/cadastraRestaurante', RestaurantController.createRestaurant)
 restaurantRoute.get('/restaurantes', RestaurantController.listAllRestaurants)
-restaurantRoute.get('/findRestaurant', RestaurantController.findRestaurantById)
+restaurantRoute.get('/findRestaurant/:id', RestaurantController.findRestaurantById)
 
 module.exports = restaurantRoute

@@ -30,7 +30,7 @@ class RestaurantController {
   static findRestaurantById = async (req, res) => {
     try {
 
-      const {id} = req.body 
+      const id = req.params.id 
       const restaurant = await Restaurant.findOne({_id : id})
       
       res.status(200).json(restaurant)
