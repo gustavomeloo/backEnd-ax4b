@@ -110,6 +110,24 @@ class PollController {
     } catch {
       throw new Error("error")
     }
+  }
+    static restauranteWinner = async (req, res) => {
+      try {
+        const poll = await Poll.aggregate(
+          [
+              { "$group": {
+                  "restaurant": "$restaurant",
+                  "count": { "$sum": 1 }
+              }}
+          ],
+          function(err, docs) {
+             if (err) console.log(err);
+             res.status(200).json(docs)
+          }
+      )
+    } catch {
+      throw new Error("error")
+    }
 
 }}
 
