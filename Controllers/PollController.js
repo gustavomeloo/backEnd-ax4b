@@ -15,12 +15,12 @@ class PollController {
         return
       }
 
-      if(!(new Date().toLocaleTimeString() > '09:00:00' && new Date().toLocaleTimeString() < '11:50:00')){
-         res.status(422).json({
-           msg : 'invalid time'
-         })
-         return
-      }
+      // if(!(new Date().toLocaleTimeString() > '09:00:00' && new Date().toLocaleTimeString() < '11:50:00')){
+      //    res.status(422).json({
+      //      msg : 'invalid time'
+      //    })
+      //    return
+      // }
       
 
         if( !mongoose.Types.ObjectId.isValid(user) ){
@@ -111,20 +111,24 @@ class PollController {
       throw new Error("error")
     }
   }
-    static restauranteWinner = async (req, res) => {
+
+  
+    static rankingRestaurants = async (req, res) => {
       try {
-        const poll = await Poll.aggregate(
+        const polls = await Poll.aggregate(
           [
               { "$group": {
-                  "restaurant": "$restaurant",
-                  "count": { "$sum": 1 }
-              }}
+                  _id : {restaurant : "$restaurant"},
+                  count: { $sum: 1 },
+                  
+              }},
+              {$sort : { count : -1}}
+            
           ],
-          function(err, docs) {
-             if (err) console.log(err);
-             res.status(200).json(docs)
-          }
       )
+
+      res.status(200).json(polls)
+
     } catch {
       throw new Error("error")
     }
