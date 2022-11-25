@@ -101,10 +101,10 @@ class PollController {
 
     static verifyPollUser = async (req, res) => {
 
-      const {user} = req.body
+      const id = req.params.id
 
       try {
-        const poll = await Poll.findOne({user : user, data : new Date().toLocaleDateString()})
+        const poll = await Poll.findOne({user : id, data : new Date().toLocaleDateString()})
 
         res.json(poll)
     } catch {
@@ -135,6 +135,8 @@ class PollController {
                   count: { $sum: 1 },
                   
               }},
+              { $lookup: {from: 'restaurants', localField: '_id', foreignField: 'restaurant', as: 'restaurant'}},
+
               {$sort : { count : -1}}
             
           ],
