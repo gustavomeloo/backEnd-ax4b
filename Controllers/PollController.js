@@ -99,6 +99,19 @@ class PollController {
       }
     }
 
+    static verifyPollUser = async (req, res) => {
+
+      const {user} = req.body
+
+      try {
+        const poll = await Poll.findOne({user : user, data : new Date().toLocaleDateString()})
+
+        res.json(poll)
+    } catch {
+      throw new Error("error")
+    }
+  }
+
     static verifyPoll = async (idUser) => {
       try {
         const poll = await Poll.findOne({user : idUser, data : new Date().toLocaleDateString()})
