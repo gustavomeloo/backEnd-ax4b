@@ -135,8 +135,6 @@ class PollController {
                   count: { $sum: 1 },
                   
               }},
-              { $lookup: {from: 'restaurants', localField: '_id', foreignField: 'restaurant', as: 'restaurant'}},
-
               {$sort : { count : -1}}
             
           ],

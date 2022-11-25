@@ -33,7 +33,7 @@ class RestaurantController {
       const {id} = req.body 
       const restaurant = await Restaurant.findOne({_id : id})
       
-      res.status(200).json(restaurant.name)
+      res.status(200).json(restaurant)
 
     } catch (error) {
         res.status(500).json(error)
