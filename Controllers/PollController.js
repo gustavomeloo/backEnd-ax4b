@@ -143,6 +143,27 @@ class PollController {
       throw new Error("error")
     }
 
-}}
+  }
+
+  static restaurantWinner = async (req, res) => {
+    try {
+      const polls = await Poll.aggregate([
+         {$match : { data : new Date().toLocaleDateString("en-US")}},
+        {$group: {_id: '$restaurant', restaurant: {$push: '$restaurant'}, votos: {$sum : 1}}},
+        {$sort: {votos : -1}},
+        { $limit : 1 }
+        ])
+
+      await Poll.populate(polls, {path: "restaurant"});
+
+    res.status(200).json(polls[0])
+
+  } catch {
+    throw new Error("error")
+  }
+}
+
+
+}
 
 module.exports = PollController

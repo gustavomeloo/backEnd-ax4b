@@ -14,7 +14,7 @@ const Poll = mongoose.model("Poll", {
   },
   data : {
     type : String,
-    default : new Date().toLocaleDateString()
+    default : new Date().toLocaleDateString("en-Us")
   },
 
   time : {
