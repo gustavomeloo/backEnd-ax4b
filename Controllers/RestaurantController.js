@@ -40,6 +40,18 @@ class RestaurantController {
     }
   }
 
+  static deleteRestaurant = async (req, res) => {
+    const id = req.params.id
+
+    try {
+       const restaurant = await Restaurant.findOneAndDelete({_id : id})
+
+        res.status(201).json(restaurant)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 }
 
 module.exports = RestaurantController

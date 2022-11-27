@@ -15,7 +15,7 @@ class PollController {
         return
       }
 
-      // if(!(new Date().toLocaleTimeString() > '09:00:00' && new Date().toLocaleTimeString() < '11:50:00')){
+      // if(!(new Date().toLocaleTimeString('pt-BR',{timeZone: 'America/Sao_Paulo'}) > '09:00:00' && new Date().toLocaleTimeString('pt-BR',{timeZone: 'America/Sao_Paulo'}) < '11:50:00')){
       //    res.status(422).json({
       //      msg : 'invalid time'
       //    })
