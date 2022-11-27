@@ -88,7 +88,7 @@ class PollController {
       try {
         const polls = await Poll.find().populate('user').populate('restaurant').where(
          {
-          data : new Date().toLocaleDateString()
+          data : new Date().toLocaleDateString("en-US", {timeZone: 'America/Sao_Paulo'})
          }
         )
         
@@ -104,7 +104,7 @@ class PollController {
       const id = req.params.id
 
       try {
-        const poll = await Poll.findOne({user : id, data : new Date().toLocaleDateString("en-US")})
+        const poll = await Poll.findOne({user : id, data : new Date().toLocaleDateString("en-US", {timeZone: 'America/Sao_Paulo'})})
 
         res.json(poll)
     } catch {
@@ -114,7 +114,7 @@ class PollController {
 
     static verifyPoll = async (idUser) => {
       try {
-        const poll = await Poll.findOne({user : idUser, data : new Date().toLocaleDateString("en-US")})
+        const poll = await Poll.findOne({user : idUser, data : new Date().toLocaleDateString("en-US", {timeZone: 'America/Sao_Paulo'})})
 
         if(!poll){
           return false
@@ -129,7 +129,7 @@ class PollController {
     static rankingRestaurants = async (req, res) => {
       try {
         const polls = await Poll.aggregate([
-           {$match : { data : new Date().toLocaleDateString("en-US")}},
+           {$match : { data : new Date().toLocaleDateString("en-US", {timeZone: 'America/Sao_Paulo'})}},
           {$group: {_id: '$restaurant', restaurant: {$push: '$restaurant'}, votos: {$sum : 1}}},
           {$sort: {votos : -1}}
           
@@ -148,7 +148,7 @@ class PollController {
   static restaurantWinner = async (req, res) => {
     try {
       const polls = await Poll.aggregate([
-         {$match : { data : new Date().toLocaleDateString("en-US")}},
+         {$match : { data : new Date().toLocaleDateString("en-US", {timeZone: 'America/Sao_Paulo'})}},
         {$group: {_id: '$restaurant', restaurant: {$push: '$restaurant'}, votos: {$sum : 1}}},
         {$sort: {votos : -1}},
         { $limit : 1 }
