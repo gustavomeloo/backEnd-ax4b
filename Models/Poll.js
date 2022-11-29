@@ -19,7 +19,7 @@ const Poll = mongoose.model("Poll", {
 
   time : {
     type : String,
-    default : new Date().toLocaleTimeString()
+    default : new Date().toLocaleTimeString("pt-BR", {timeZone: 'America/Sao_Paulo'})
   }
 })
 
