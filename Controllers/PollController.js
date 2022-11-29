@@ -59,7 +59,7 @@ class PollController {
           return
         }
 
-        const poll = {user, restaurant}
+        const poll = {user, restaurant, data : new Date().toLocaleTimeString("pt-BR", {timeZone: 'America/Sao_Paulo'})}
 
 
         try {
